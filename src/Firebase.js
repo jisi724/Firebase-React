@@ -1,4 +1,3 @@
-import { createContext } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
@@ -17,6 +16,10 @@ firebase.initializeApp(config);
 const db = firebase.firestore();
 const todoCollection = db.collection("todos");
 
-export { todoCollection };
+window.todo = todoCollection
+
+const timeStamp = firebase.firestore.Timestamp;
+
+export { todoCollection, timeStamp };
 
 export default db;
