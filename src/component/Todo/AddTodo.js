@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { timeStamp } from '../../utilities/firebaseTools'
+import { timeStamp } from '../../utils/firebaseTools'
 import { addTodo } from "../../redux/actions";
 
 const AddTodo = () => {
