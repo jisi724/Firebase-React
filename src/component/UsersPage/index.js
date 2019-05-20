@@ -7,8 +7,10 @@ const UserPage = function() {
   const users = useSelector(state => state.users);
 
   useEffect(() => {
-    dispatch(subscribeAllUsers());
-  }, [dispatch]);
+    if (users.data.length === 0) {
+      dispatch(subscribeAllUsers());
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (users.loading) {
     return (

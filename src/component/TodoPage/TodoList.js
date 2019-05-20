@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { subscribeTodo } from "../../redux/actions";
-import TodoItem from './TodoItem';
+import TodoItem from "./TodoItem";
 
 const TodoList = function() {
   const dispatch = useDispatch();
   const todos = useSelector(state => state.todos);
 
   useEffect(() => {
-    dispatch(subscribeTodo());
-  }, [dispatch]);
+    if (todos.data.length === 0) {
+      dispatch(subscribeTodo());
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (todos.loading) {
     return (
