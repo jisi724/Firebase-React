@@ -14,12 +14,12 @@ const config = {
 
 firebase.initializeApp(config);
 const db = firebase.firestore();
+const auth = firebase.auth();
+
 const todoCollection = db.collection("todos");
-
-window.todo = todoCollection
-
+const userCollection = db.collection("users");
 const timeStamp = firebase.firestore.Timestamp;
 
-export { todoCollection, timeStamp };
+export { auth, todoCollection, userCollection, timeStamp };
 
 export default db;

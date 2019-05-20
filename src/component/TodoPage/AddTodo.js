@@ -14,7 +14,7 @@ const AddTodo = () => {
       addTodo({
         todo,
         complete: false,
-        dateExample: timeStamp.fromDate(new Date())
+        createTime: timeStamp.fromDate(new Date())
       })
     );
     setTodo('');
