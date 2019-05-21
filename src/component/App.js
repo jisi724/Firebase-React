@@ -23,7 +23,12 @@ const App = () => {
 
   return (
     <Router history={history}>
-      <Layout>
+      <Layout
+        style={{
+          background:
+            "linear-gradient(-20deg, #e2ebf0, #d0b782 25%, #a0cecf 90%)"
+        }}
+      >
         <Header style={{ zIndex: 1, width: "100%" }}>
           <Nav />
         </Header>
@@ -33,7 +38,8 @@ const App = () => {
             width: "100%",
             maxWidth: 1440,
             minHeight: "calc(100vh - 133px)",
-            margin: "0 auto"
+            margin: "0 auto",
+            paddingTop: 50
           }}
         >
           <Switch>

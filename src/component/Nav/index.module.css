@@ -16,6 +16,10 @@
   color: white; 
 }
 
+.dropdown span {
+  margin-left: 10px;
+}
+
 .marginRight {
   margin-right: 10px;
 }
