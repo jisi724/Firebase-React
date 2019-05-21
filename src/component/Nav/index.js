@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Avatar, Dropdown, Menu } from "antd";
-import "./index.scss";
+import styles from './index.module.css';
 import { signOut } from "../../redux/actions";
 
 const App = () => {
@@ -26,15 +26,15 @@ const App = () => {
   return (
     <div>
       {currentUser ? (
-        <Link to="/todos" className="logo" />
+        <Link to="/todos" className={styles.logo} />
       ) : (
-        <Link to="/" className="logo" />
+        <Link to="/" className={styles.logo} />
       )}
 
-      <div className="menu-right">
+      <div className={styles.floatRight}>
         {currentUser ? (
-          <Dropdown overlay={menu} >
-            <div className="dropdown">
+          <Dropdown overlay={menu}>
+            <div className={styles.dropdown}>
               <Avatar icon="user" />
               <span>{currentUser.email}</span>
             </div>

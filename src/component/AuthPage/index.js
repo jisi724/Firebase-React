@@ -1,12 +1,18 @@
 import React from "react";
+import { Route, Switch, Redirect } from "react-router-dom";
+import styles from './index.module.css';
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 
 const AuthPage = () => (
-  <div>
-    <h1>AuthPage</h1>
-    <SignUp />
-    <SignIn />
+  <div className={styles.authWrap}>
+    <div className={styles.logo} />
+    <h2>Todo App</h2>
+    <Switch>
+      <Route path="/auth/login" component={SignIn} />
+      <Route path="/auth/register" component={SignUp} />
+      <Redirect to="/auth/login" />
+    </Switch>
   </div>
 );
 

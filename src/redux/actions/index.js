@@ -5,6 +5,8 @@ import {
   timeStamp
 } from "../../Firebase";
 import types from "./types";
+import history from "../../utils/customHistory";
+import { message } from "antd";
 
 export const fetchToDo = () => dispatch => {
   dispatch({ type: types.FETCH_TODOS_LOADING });
@@ -37,7 +39,10 @@ export const addTodo = todo => dispatch => {
   todoCollection
     .add(todo)
     .then(() => dispatch({ type: types.ADD_TODOS_SUCCESS }))
-    .catch(error => dispatch({ type: types.ADD_TODOS_FAILURE, error }));
+    .catch(error => {
+      dispatch({ type: types.ADD_TODOS_FAILURE, error });
+      message.error(error.message);
+    });
 };
 
 export const updateTodo = todo => dispatch => {
@@ -55,39 +60,58 @@ export const updateTodo = todo => dispatch => {
 };
 
 export const fetchCurrentUser = () => dispatch => {
-  auth.onAuthStateChanged(user =>
-    dispatch({ type: types.FETCH_CURRENT_USER_SUCCESS, payload: user || null })
-  );
+  auth.onAuthStateChanged(user => {
+    dispatch({
+      type: types.FETCH_CURRENT_USER_SUCCESS,
+      payload: user || null
+    });
+    history.push(user ? "/todos" : "/");
+  });
 };
 
 export const signUp = (email, password) => dispatch => {
   auth
     .createUserWithEmailAndPassword(email, password)
-    .then(() => userCollection.add({
-      email,
-      createTime: timeStamp.fromDate(new Date())
-    }))
-    .catch(error =>
-      dispatch({ type: types.FETCH_CURRENT_USER_ERROR, error: error.message })
-    );
+    .then(() => {
+      userCollection.add({
+        email,
+        createTime: timeStamp.fromDate(new Date())
+      });
+      message.success("Register Successful!");
+    })
+    .catch(error => {
+      dispatch({
+        type: types.FETCH_CURRENT_USER_ERROR,
+        error: error.message
+      });
+      message.error(error.message);
+    });
 };
 
 export const signIn = (email, password) => dispatch => {
   auth
     .signInWithEmailAndPassword(email, password)
-    .then(result => console.log(result)) // no need to do anything as fetchUser will dispatch action
-    .catch(error =>
-      dispatch({ type: types.FETCH_CURRENT_USER_ERROR, error: error.message })
-    );
+    .then(result => message.success("Welcome Back!")) // no need to do anything as fetchUser will dispatch action
+    .catch(error => {
+      dispatch({
+        type: types.FETCH_CURRENT_USER_ERROR,
+        error: error.message
+      });
+      message.error(error.message);
+    });
 };
 
 export const signOut = () => dispatch => {
   auth
     .signOut()
-    .then(result => console.log(result)) // no need to do anything as fetchUser will dispatch action
-    .catch(error =>
-      dispatch({ type: types.FETCH_CURRENT_USER_ERROR, error: error.message })
-    );
+    .then(result => message.info("Bye~")) // no need to do anything as fetchUser will dispatch action
+    .catch(error => {
+      dispatch({
+        type: types.FETCH_CURRENT_USER_ERROR,
+        error: error.message
+      });
+      message.error(error.message);
+    });
 };
 
 export const subscribeAllUsers = () => dispatch => {

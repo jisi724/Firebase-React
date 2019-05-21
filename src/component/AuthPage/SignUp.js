@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Form, Icon, Input, Button } from "antd";
+import { Link } from "react-router-dom";
+import styles from "./index.module.css";
 import { signUp } from "../../redux/actions";
 
 const SignUp = () => {
@@ -13,24 +16,40 @@ const SignUp = () => {
     e.preventDefault();
     dispatch(signUp(email, password));
   };
+
   return (
-    <div>
-      <h3>Sign Up</h3>
-      <form onSubmit={handleSubmit}>
-        <input
+    <Form onSubmit={handleSubmit} className={styles.form}>
+      <h3>Register</h3>
+      <Form.Item>
+        <Input
+          prefix={<Icon type="user" className={styles.formIcon} />}
           value={email}
           onChange={handleEmailChange}
           placeholder="Email"
         />
-        <input
+      </Form.Item>
+
+      <Form.Item>
+        <Input
+          prefix={<Icon type="lock" className={styles.formIcon} />}
           type="password"
           value={password}
           onChange={handlePasswordChange}
           placeholder="Password"
         />
-        <input type="submit" value="Sign Up" />
-      </form>
-    </div>
+      </Form.Item>
+
+      <Form.Item>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className={styles.formButton}
+        >
+          Register
+        </Button>
+        <Link to="/auth/login">Have account?</Link>
+      </Form.Item>
+    </Form>
   );
 };
 

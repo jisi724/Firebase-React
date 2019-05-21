@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchCurrentUser } from "../redux/actions";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import AuthorizedRoute from "../utils/AuthorizedRoute";
+import history from "../utils/customHistory";
 import Nav from "./Nav";
 import NotFoundPage from "./404Page";
 import AuthPage from "./AuthPage";
@@ -21,13 +22,20 @@ const App = () => {
   const { Header, Footer, Content } = Layout;
 
   return (
-    <Router>
+    <Router history={history}>
       <Layout>
         <Header style={{ zIndex: 1, width: "100%" }}>
           <Nav />
         </Header>
 
-        <Content style={{ width: "100%", maxWidth: 1440, margin: "0 auto" }}>
+        <Content
+          style={{
+            width: "100%",
+            maxWidth: 1440,
+            minHeight: "calc(100vh - 133px)",
+            margin: "0 auto"
+          }}
+        >
           <Switch>
             <Route path="/" exact component={HomePage} />
             <Route path="/auth" component={AuthPage} />
