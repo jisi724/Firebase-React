@@ -65,7 +65,6 @@ export const fetchCurrentUser = () => dispatch => {
       type: types.FETCH_CURRENT_USER_SUCCESS,
       payload: user || null
     });
-    history.push(user ? "/todos" : "/");
   });
 };
 
@@ -104,7 +103,10 @@ export const signIn = (email, password) => dispatch => {
 export const signOut = () => dispatch => {
   auth
     .signOut()
-    .then(result => message.info("Bye~")) // no need to do anything as fetchUser will dispatch action
+    .then(result => {
+      message.info("Bye~");
+      history.push("/");
+    }) // no need to do anything as fetchUser will dispatch action
     .catch(error => {
       dispatch({
         type: types.FETCH_CURRENT_USER_ERROR,
